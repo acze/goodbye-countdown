@@ -25,73 +25,25 @@
     <div id="countdowns"></div>
   </body>
   <script>
-  // Each countdown definition goes here
-  var countdowns = [
-      {
-        "name": "Marek",
-        "date": new Date("Jun 30, 2020 16:00:00"),
-        "excluded": [
-            new Date("Jun 13, 2020"),
-            new Date("Jun 14, 2020"),
-            new Date("Jun 20, 2020"),
-            new Date("Jun 21, 2020"),
-            new Date("Jun 28, 2020"),
-            new Date("Jun 19, 2020"),
-            new Date("Jun 22, 2020"),
-            new Date("Jun 23, 2020"),
-            new Date("Jun 24, 2020"),
-            new Date("Jun 25, 2020"),
-            new Date("Jun 26, 2020")
-          ]
-      },
-      {
-        "name": "Szymon",
-        "date": new Date("Jun 30, 2020 16:00:00"),
-        "excluded": [
-            new Date("Jun 13, 2020"),
-            new Date("Jun 14, 2020"),
-            new Date("Jun 20, 2020"),
-            new Date("Jun 21, 2020"),
-            new Date("Jun 28, 2020"),
-        ]
-      }
-    ];
-
+    
   function timeDeltaToString(distance) {
     // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    var days = Math.floor(distance / (60 * 60 * 8));
+    var hours = Math.floor((distance % (60 * 60 * 8)) / (60 * 60));
+    var minutes = Math.floor((distance % (60 * 60)) / 60);
+    var seconds = Math.floor((distance % (60)));
     return days + "d " + hours + "hr "+ minutes + "min and " + seconds + "sec";
   }
+  var dict = {{ secondsleft | safe }};
 
-  function updateCountdowns(cnt) {
-    // Clear div
-    document.getElementById("countdowns").innerHTML = "";
-    var now = new Date();
-    // Go thru each countdown and calculate how much days left
-    cnt.forEach(function(item) {
-      // Delta without excluded days
-      var timeDelta = item["date"].getTime() - now.getTime();
-      // Go thru excluded days and substract left time
-      item["excluded"].forEach(function(ditem) {
-        if (now.getTime() < ditem.getTime()) {
-          // Get diff between that date
-          var excludedDayDiff = ditem.getTime() - now.getTime();
-          // If it's more than one day then substract one day, if it's less, substract delta
-          if (excludedDayDiff >= 86400000) {
-            timeDelta -= 86400000;
-          } else {
-            timeDelta -= excludedDayDiff;
-          }
-        }
-      });
-      document.getElementById("countdowns").innerHTML += "<p>" + item["name"] + " will be leaving in " + timeDeltaToString(timeDelta) + "</p>";
-    });
-  }
   function main() {
-    updateCountdowns(countdowns);
+    var now = new Date().getHours();
+    document.getElementById("countdowns").innerHTML = "";
+    for (name in dict){
+      document.getElementById("countdowns").innerHTML += "<p>" + name +"'s working time left: " + timeDeltaToString(dict[name]) + "</p>";
+      //count only during working hours
+      if (now > 8 && now < 16 ) dict[name]--;
+    }
   }
   </script>
 </html>
