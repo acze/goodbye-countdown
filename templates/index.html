@@ -46,12 +46,12 @@
   var dict = {{ secondsleft | safe }};
 
   function main() {
-    var now = new Date().getHours();
+    var now = new Date().getUTCHours();
     document.getElementById("countdowns").innerHTML = "";
     for (name in dict){
       document.getElementById("countdowns").innerHTML += "<p>" + name +"'s working time left: " + timeDeltaToString(dict[name]) + "</p>";
       //count only during working hours
-      if (now > 8 && now < 16 ) dict[name]--;
+      if (now > 6 && now < 14 ) dict[name]--;
     }
   }
   </script>
