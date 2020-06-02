@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,send_from_directory
 import datetime
 from datetime import timedelta,date
 
@@ -70,6 +70,10 @@ def index():
 
     now = datetime.datetime.now()
     return render_template('index.html',secondsleft=secondsleft(employees,now))
+
+@app.route("/leavers.png")
+def leavers():
+    return send_from_directory('templates', 'leavers.png')
 
 if __name__ == '__main__':
     app.run(debug=True)
