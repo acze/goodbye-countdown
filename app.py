@@ -16,10 +16,10 @@ def secondsleft(employees,now):
         time_to_work = 0
         #last day
         if justday(now) == justday(employee["date"]):
-            if(now.hour < now.replace(hour=8, minute=0, second=0, microsecond=0).hour):
+            if(now.hour < now.replace(hour=6, minute=0, second=0, microsecond=0).hour):
                 time_to_work = 8 * 60 * 60
             else:
-                time_to_work = int((now.replace(hour=16, minute=0, second=0, microsecond=0) - now) / timedelta(seconds=1))
+                time_to_work = int((now.replace(hour=14, minute=0, second=0, microsecond=0) - now) / timedelta(seconds=1))
         else:
             for single_date in daterange(now, employee["date"]):
                 single_date_day = justday(single_date)
@@ -27,7 +27,7 @@ def secondsleft(employees,now):
                 if not(single_date.weekday() in [5,6] or single_date_day in employee["excluded"]):
                     #today
                     if single_date_day == justday(now):
-                        timeslice = int((now.replace(hour=16, minute=0, second=0, microsecond=0) - now) / timedelta(seconds=1))
+                        timeslice = int((now.replace(hour=14, minute=0, second=0, microsecond=0) - now) / timedelta(seconds=1))
                         if timeslice >= 0:
                             time_to_work += timeslice
                     else:
@@ -41,7 +41,7 @@ def index():
     employees = [
         {
             "name" : "Marek",
-            "date" : datetime.datetime(2020, 6, 30, 16, 0, 0),
+            "date" : datetime.datetime(2020, 6, 30, 14, 0, 0),
             "excluded" : [
             datetime.datetime(2020, 6, 19),
             datetime.datetime(2020, 6, 22),
@@ -53,17 +53,17 @@ def index():
         },
         {
             "name": "Szymon",
-            "date" : datetime.datetime(2020, 6, 30, 16, 0, 0),
+            "date" : datetime.datetime(2020, 6, 30, 14, 0, 0),
             "excluded": []
         },
         {
             "name": "Adam",
-            "date" : datetime.datetime(2020, 8, 31, 16, 0, 0),
+            "date" : datetime.datetime(2020, 8, 31, 14, 0, 0),
             "excluded": []
         },
         {
             "name": "Szczepan",
-            "date" : datetime.datetime(2020, 6, 30, 16, 0, 0),
+            "date" : datetime.datetime(2020, 6, 30, 14, 0, 0),
             "excluded": []
         }
     ]
