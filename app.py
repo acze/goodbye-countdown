@@ -55,6 +55,16 @@ def index():
             "name": "Szymon",
             "date" : datetime.datetime(2020, 6, 30, 16, 0, 0),
             "excluded": []
+        },
+        {
+            "name": "Adam",
+            "date" : datetime.datetime(2020, 8, 31, 16, 0, 0),
+            "excluded": []
+        },
+        {
+            "name": "Szczepan",
+            "date" : datetime.datetime(2020, 6, 30, 16, 0, 0),
+            "excluded": []
         }
     ]
 
