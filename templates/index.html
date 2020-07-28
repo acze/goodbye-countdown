@@ -34,8 +34,12 @@
     </audio>
   </body>
   <script>
-    
+
   function timeDeltaToString(distance) {
+    if (distance < 0)
+    {
+      return "0! Feels good, man!";
+    }
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (60 * 60 * 8));
     var hours = Math.floor((distance % (60 * 60 * 8)) / (60 * 60));
